@@ -54,5 +54,9 @@ The output is similar to
     hello from core 2
     hello from core 3
     hello from core 0
-# TODO
-- [ ] Enable vfio for non-privileged user
+It is possible to enable vfio for non-privileged user,
+
+    cd /path-to-dpdk
+    source usertools/dpdk-setup.sh
+    select 25
+However, the NIC of my laptop does not support SRIOV, failed to be binded to VFIO.
