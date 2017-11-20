@@ -47,7 +47,7 @@ Build helloworld application
     make
 Due to the permission issue, we use the superuser to run the application
 
-    sudo ./build/helloworld -c f -n 2
+    sudo ./build/helloworld -c f
 The output is similar to
 
     hello from core 1
