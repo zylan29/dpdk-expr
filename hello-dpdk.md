@@ -35,10 +35,10 @@ then,
     sudo echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
 
     sudo mkdir /mnt/huge1g
-    sudo mount -t hugetlbfs -o pagesize=1G none /mnt/huge1g/
+    sudo mount -t hugetlbfs -o pagesize=1G nodev /mnt/huge1g/
     sudo echo 2 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages
 
-The 'sudo echo command' reports permission denied error, I have edit the file by using vim instead.
+The 'sudo echo command' reports permission denied error, I have to edit the file by using vim instead.
 
 # Hello world
 Build helloworld application
