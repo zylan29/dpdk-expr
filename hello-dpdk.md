@@ -29,7 +29,7 @@ then,
 
     source /etc/profile
 
-# Configure large memory page
+# Configure huge page
     sudo mkdir /mnt/huge2m
     sudo mount -t hugetlbfs nodev /mnt/huge2m
     sudo echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
@@ -54,9 +54,10 @@ The output is similar to
     hello from core 2
     hello from core 3
     hello from core 0
-It is possible to enable vfio for non-privileged user,
+We can give the the access permission of /mnt/huge1g and /mnt/huge2m to non-privileged user,
 
-    cd /path-to-dpdk
-    source usertools/dpdk-setup.sh
-    select 25
-However, the NIC of my laptop does not support SRIOV, failed to be binded to VFIO.
+    sudo chown -R your-user /mnt/huge2m/
+    sudo chown -R your-user /mnt/huge1g/
+then run helloworld by the non-privileged user, 
+
+    ./build/helloworld -c f
