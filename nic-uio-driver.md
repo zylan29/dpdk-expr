@@ -44,7 +44,8 @@ It is an issue comes with the VMWare workstation virtual machines due to the VMw
 Patch to fix the issue can be found from http://dpdk.org/dev/patchwork/patch/7203/.
 Since the patch does not apply to DPDK-17.11 directly.
 I have to modify `lib/librte_eal/linuxapp/igb_uio/igb_uio.c` manually according to the patch, and re-make from source, then re-bind the NIC to igb_uio driver.
-The new patch is
+
+The new patch for DPDK-17.11 is
 ````
 diff --git a/lib/librte_eal/linuxapp/igb_uio/igb_uio.c b/opt/dpdk/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
 index a3a98c1..1c06a5a 100644
