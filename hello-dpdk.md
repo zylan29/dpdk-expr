@@ -32,13 +32,13 @@ then,
 # Configure huge page
     sudo mkdir /mnt/huge2m
     sudo mount -t hugetlbfs nodev /mnt/huge2m
-    sudo echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
+    sudo sh -c "/bin/echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages"                                                                              
 
     sudo mkdir /mnt/huge1g
     sudo mount -t hugetlbfs -o pagesize=1G nodev /mnt/huge1g/
-    sudo echo 2 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages
+    sudo sh -c "/bin/echo 1 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages"
 
-The 'sudo echo' commands report permission denied error, I have to edit the file by using vim instead.
+The `sudo` should cover the whole echo redirection command.
 
 # Hello world
 Build helloworld application
@@ -58,6 +58,6 @@ We can give the the access permission of /mnt/huge1g and /mnt/huge2m to non-priv
 
     sudo chown -R your-user /mnt/huge2m/
     sudo chown -R your-user /mnt/huge1g/
-then run helloworld by the non-privileged user, 
+then run helloworld by the non-privileged user,
 
     ./build/helloworld -c f
