@@ -44,9 +44,9 @@ reports
 
     EAL: Error reading from file descriptor 13: Input/output error
 It is an issue comes with the VMWare workstation virtual machines, due to the VMware emulated e1000 device doesn't support INTX_DISABLE flag.
-Patch to fix the issue can be found from http://dpdk.org/dev/patchwork/patch/7203/.
+Patch to fix the issue can be found at http://dpdk.org/dev/patchwork/patch/7203/.
 Since the patch does not apply to DPDK-17.11 directly.
-I have to modify `lib/librte_eal/linuxapp/igb_uio/igb_uio.c` manually according to the patch, and re-make from source, then re-bind the NIC to igb_uio driver.
+I have to modify `lib/librte_eal/linuxapp/igb_uio/igb_uio.c` manually according to the patch, and re-make from source, then re-bind the NIC to new generated igb_uio driver.
 
 The new patch for DPDK-17.11 is
 ````
