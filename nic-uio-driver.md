@@ -1,46 +1,49 @@
 # Bind NIC to uio driver
 Show current network device drivers
-
-    cd ${RTE_SDK}/${RTE_TARGET}/usertools/
-    ./dpdk-devbind.py --status
+````
+cd ${RTE_SDK}/${RTE_TARGET}/usertools/
+./dpdk-devbind.py --status
+````
 The output looks like
+````
+Network devices using DPDK-compatible driver
+============================================
+<none>
 
-    Network devices using DPDK-compatible driver
-    ============================================
-    <none>
-
-    Network devices using kernel driver
-    ===================================
-    0000:02:01.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens33 drv=e1000 unused= *Active*
-    0000:02:06.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens38 drv=e1000 unused=
+Network devices using kernel driver
+===================================
+0000:02:01.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens33 drv=e1000 unused= *Active*
+0000:02:06.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens38 drv=e1000 unused=
+````
 Probe uio driver
 
     sudo modprobe uio
     sudo insmod ${RTE_SDK}/${RTE_TARGET}/kmod/igb_uio.ko
     sudo ./dpdk-devbind.py -b igb_uio 02:06.0
 The output looks like
+````
+Network devices using DPDK-compatible driver
+============================================
+0000:02:06.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' drv=igb_uio unused=uio_pci_generic
 
-    Network devices using DPDK-compatible driver
-    ============================================
-    0000:02:06.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' drv=igb_uio unused=uio_pci_generic
-
-    Network devices using kernel driver
-    ===================================
-    0000:02:01.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens33 drv=e1000 unused=igb_uio,uio_pci_generic *Active*
-
+Network devices using kernel driver
+===================================
+0000:02:01.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' if=ens33 drv=e1000 unused=igb_uio,uio_pci_generic *Active*
+````
 
 `uio_pci_generic` is another valid DPDK-compatible driver. However, I fail to bind NIC to in my VM, so I use `igb_uio` instead. From my experience, uio_pci_generic is workable in physical machines.
 
 # Fix virtual enviroment issue
 
 The command
-
-    cd $RTE_SDK/examples/l2fwd
-    sudo ./build/l2fwd -- -p 0x1
+````
+cd $RTE_SDK/examples/l2fwd
+sudo ./build/l2fwd -- -p 0x1
+````
 reports
 
     EAL: Error reading from file descriptor 13: Input/output error
-It is an issue comes with the VMWare workstation virtual machines due to the VMware emulated e1000 device doesn't support INTX_DISABLE flag.
+It is an issue comes with the VMWare workstation virtual machines, due to the VMware emulated e1000 device doesn't support INTX_DISABLE flag.
 Patch to fix the issue can be found from http://dpdk.org/dev/patchwork/patch/7203/.
 Since the patch does not apply to DPDK-17.11 directly.
 I have to modify `lib/librte_eal/linuxapp/igb_uio/igb_uio.c` manually according to the patch, and re-make from source, then re-bind the NIC to igb_uio driver.
