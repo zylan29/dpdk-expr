@@ -47,7 +47,7 @@ Build helloworld application
     make
 Due to the permission issue, we use the superuser to run the application
 
-    sudo ./build/helloworld -c f
+    sudo ./build/helloworld
 The output is similar to
 
     hello from core 1
@@ -60,4 +60,4 @@ We can give the the access permission of /mnt/huge1g and /mnt/huge2m to non-priv
     sudo chown -R your-user /mnt/huge1g/
 then run helloworld by the non-privileged user,
 
-    ./build/helloworld -c f
+    ./build/helloworld
