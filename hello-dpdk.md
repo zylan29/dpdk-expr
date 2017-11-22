@@ -1,6 +1,6 @@
 # Hello DPDK world
 ## Build DPDK
-Build DPDK from a fresh installed Ubuntu 17.10 system.
+Build DPDK from a fresh installed Ubuntu (VM) system.
 
 Download latest DPDK from dpdk.org
 
@@ -38,7 +38,7 @@ then,
     sudo mount -t hugetlbfs -o pagesize=1G nodev /mnt/huge1g/
     sudo sh -c "/bin/echo 1 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages"
 
-The `sudo` should cover the whole echo redirection command.
+The `sudo` has to cover whole redirection in order it can be completely executed under root.
 
 # Hello world
 Build helloworld application
