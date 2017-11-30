@@ -89,10 +89,11 @@ then bind NICs to the `igb_uio` driver.
 ## Create VF
 ````
 lspci |grep Ethernet
-02:06.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+#echo 4 > echo 4 > /sys/class/net/`device name`/device/sriov_numvfs
+lspci |grep Ethernet
 ````
-This step is critical to use SRIOV.
-For the physical hosts with SRIOV supported NIC, it works fine.
+This step create 4 VFs, which is critical to use SRIOV.
+For the physical hosts with SRIOV supported NICs, it works fine.
 However, the NIC of my laptop does not support SRIOV, and enabling `iommu=pt` causes problem with packet tx in my VM, so I turned it off later.
 
 A complete list of Intel Ethernet Server Adapters that support SRIOV can be found at
