@@ -73,7 +73,7 @@ index a3a98c1..1c06a5a 100644
                         udev->info.irq_flags = IRQF_SHARED | IRQF_NO_THREAD;
                         udev->info.irq = udev->pdev->irq;
 ````
-# Enable IOMMU & VFIO
+# Enable SRIOV
 ## VFIO kernel module
 ````
 sudo vim /etc/default/grub
@@ -91,5 +91,9 @@ then bind NICs to the `igb_uio` driver.
 lspci |grep Ethernet
 02:06.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
 ````
+This step is critical to use SRIOV.
+For the physical hosts with SRIOV supported NIC, it works fine.
+However, the NIC of my laptop does not support SRIOV, and enabling `iommu=pt` causes problem with packet tx in my VM, so I turned it off later.
 
-- [ ] Failed, still can NOT create VF in my vm, possibly due to my physical NIC does NOT support SRIOV.
+A complete list of Intel Ethernet Server Adapters that support SRIOV can be found at
+https://www.intel.com/content/www/us/en/support/articles/000005722/network-and-i-o/ethernet-products.html
