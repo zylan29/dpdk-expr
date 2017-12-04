@@ -29,7 +29,7 @@ then,
 
     source /etc/profile
 
-# Configure huge page
+# Configure hugepages
     sudo mkdir /mnt/huge2m
     sudo mount -t hugetlbfs nodev /mnt/huge2m
     sudo sh -c "/bin/echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages"                                                                              
@@ -39,6 +39,14 @@ then,
     sudo sh -c "/bin/echo 1 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages"
 
 The `sudo` has to cover whole redirection in order it can be completely executed under root.
+
+The hugepage sizes that a CPU supports can be determined from the CPU flags on Intel architecture. If pse exists, 2M hugepages are supported; if pdpe1gb exists, 1G hugepages are supported.
+For 64-bit applications, it is recommended to use 1 GB hugepages if the platform supports them.
+We can automatically mount hugepages when OS booted.
+1. Edit file `/etc/default/grub`, and append `"default_hugepagesz=1GB hugepagesz=1G hugepages=4"` to `GRUB_CMDLINE_LINUX_DEFAULT`,
+1. Do `sudo update-grub`,
+1. Edit file `/etc/fstab` , and add a new line `nodev /dev/hugepages hugetlbfs defaults 0 0` to the end of the file,
+1. Finally `reboot`.
 
 # Hello world
 Build helloworld application
