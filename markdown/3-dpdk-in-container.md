@@ -5,7 +5,7 @@
 Official instruction to install docker-ce is： https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#set-up-the-repository
 
 Compact tutorial to install docker-ce is as follows:
-````
+```shell
 sudo apt-get remove docker docker-engine docker.io
 sudo apt-get update
 sudo apt-get install -y \
@@ -24,7 +24,7 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update
 sudo apt-get install -y docker-ce
-````
+```
 
 # Build DPDK in docker container
 
@@ -56,14 +56,14 @@ CMD ["/bin/bash"]
 ````
 ## Build docker image
 
-````
+```shell
 sudo docker build -t dpdk .
-````
+```
 
 Please refer to https://github.com/redhat-performance/docker-dpdk for RHEL/CentOS systems.
 However, you may need to modify the Dockerfile, build-dpdk.sh and dpdk-profile.sh scripts on your own to use new DPDK release.
 
 ## Run DPDK container
-````
+```shell
 sudo docker run
-````
+```

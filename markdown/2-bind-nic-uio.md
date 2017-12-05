@@ -1,9 +1,9 @@
 # Bind NIC to uio driver
 Show current network device drivers
-````
+```shell
 cd ${RTE_SDK}/${RTE_TARGET}/usertools/
 ./dpdk-devbind.py --status
-````
+```
 The output looks like
 ````
 Network devices using DPDK-compatible driver
@@ -36,10 +36,10 @@ Network devices using kernel driver
 # Fix virtual enviroment issue
 
 The command
-````
+```shell
 cd $RTE_SDK/examples/l2fwd
 sudo ./build/l2fwd -- -p 0x1
-````
+```
 reports
 
     EAL: Error reading from file descriptor 13: Input/output error
@@ -49,7 +49,7 @@ Since the patch does not apply to DPDK-17.11 directly.
 I have to modify `lib/librte_eal/linuxapp/igb_uio/igb_uio.c` manually according to the patch, and re-make from source, then re-bind the NIC to new generated igb_uio driver.
 
 The new patch for DPDK-17.11 is
-````
+```diff
 diff --git a/lib/librte_eal/linuxapp/igb_uio/igb_uio.c b/opt/dpdk/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
 index a3a98c1..1c06a5a 100644
 --- a/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
@@ -72,26 +72,26 @@ index a3a98c1..1c06a5a 100644
                         dev_dbg(&udev->pdev->dev, "using INTX");
                         udev->info.irq_flags = IRQF_SHARED | IRQF_NO_THREAD;
                         udev->info.irq = udev->pdev->irq;
-````
+```
 # Enable SRIOV
 ## VFIO kernel module
-````
+```shell
 sudo vim /etc/default/grub
-````
+```
 Append `"iommu=pt, intel_iommu=on"` to `GRUB_CMDLINE_LINUX_DEFAULT` in `/etc/default/grub`.
-````
+```shell
 sudo update-grub
 sudo reboot
 sudo modprobe uio_pci_generic
 sudo modprobe vfio_pci
-````
+```
 then bind NICs to the `igb_uio` driver.
 ## Create VF
-````
+```shell
 lspci |grep Ethernet
-#echo 4 > echo 4 > /sys/class/net/`device name`/device/sriov_numvfs
+echo 4 > /sys/class/net/`device name`/device/sriov_numvfs
 lspci |grep Ethernet
-````
+```
 This step create 4 VFs, which is critical to use SRIOV.
 For the physical hosts with SRIOV supported NICs, it works fine.
 However, the NIC of my laptop does not support SRIOV, and enabling `iommu=pt` causes problem with packet tx in my VM, so I turned it off later.

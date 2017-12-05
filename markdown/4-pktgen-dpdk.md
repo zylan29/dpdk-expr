@@ -1,44 +1,44 @@
 
 # Test pktgen-dpdk
 ## Build pktgen-dpdk
-````
+```shell
 git clone git://dpdk.org/apps/pktgen-dpdk
 cd pktgen-dpdk
 sed -i '/Wwrite-strings$/ s/$/ -Wno-unused-but-set-variable/' $DPDKROOT/mk/toolchain/gcc/rte.vars.mk
 make
-````
+```
 ## New DPDK container
 
-````
+```shell
 docker run -it --privileged -v /sys/bus/pci/drivers:/sys/bus/pci/drivers -v /sys/kernel/mm/hugepages:/sys/kernel/mm/hugepages -v /sys/devices/system/node:/sys/devices/system/node -v /dev:/dev -v /tmp/virtio:/tmp/virtio dpdk
-````
+```
 
 ## Run test-pmd inside of container
 We run testpmd inside the container.
 After the container launched, build test-pmd application.
-````
+```shell
 source /etc/profile.d/dpdk-profile.sh
 cd $RTE_SDK/app/test-pmd
 make
-````
+```
 then run it
-````
+```shell
 ./testpmd -l 0-1 -n 1 --socket-mem 512 \
 --vdev 'eth_vhost0,iface=/tmp/virtio/sock0' --vdev 'eth_vhost1,iface=/tmp/virtio/sock1' \
 --file-prefix=test --no-pci \
 -- -i --forward-mode=io --auto-start
-````
+```
 
 ## Run pktgen outside of container
 Open a new terminal, then change directory to the top of this tutorial. The `scripts/virtio.cfg` file configures the  pktgen.
-````
+```shell
 cp scripts/virtio.cfg $PKTGEN/cfg/
 cd $PKTGEN
 ./tools/dpdk-run.py virtio
 Pktgen:/> set 0 count 1000
 Pktgen:/> set 1 count 2000
 Pktgen:/> str
-````
+```
 Note: It seems not workable with some hugepages settings, such as `2048 * 2M`, but it works with `4 * 1G`.
 - [ ] Why it only works with hugepages `4 * 1G`, not `2048 * 2M`?
 
