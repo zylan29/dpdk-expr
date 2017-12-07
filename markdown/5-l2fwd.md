@@ -108,6 +108,6 @@ Total packets received:        8269694
 Total packets dropped:               0
 ====================================================
 ````
-Now, the l2fwd receives packets through port 1 and sending through port 0.
+Now, the l2fwd receives packets through port 1 and sends through port 0.
 
 ## Code analysis
