@@ -65,7 +65,7 @@ cd /path-to-pktgen-dpdk/
 Pktgen:/> set 0 dst mac 00:0C:29:E0:8B:D5
 Pktgen:/> str
 ```
-`00:0C:29:E0:8B:D5` is the mac of device `02:07.0` (port 0 of l2fwd).
+We set the dst mac of generated packetd to `00:0C:29:E0:8B:D5`, which is the mac of device `02:07.0` (port 0 in l2fwd).
 Now l2fwd keeps receiving packets by port 0 (02:07.0) and forwarding out through port 1 (02:08.0).
 Current out of l2fwd is
 ````
@@ -85,7 +85,7 @@ Total packets dropped:               0
 ====================================================
 ````
 
-We stop pktgen-dpdk and set the dst mac to `00:0C:29:E0:8B:DF`, and start generating.
+We stop pktgen-dpdk and set the dst mac to `00:0C:29:E0:8B:DF` (port 1 in l2fwd), and start generating.
 ```shell
 Pktgen:/> stp
 Pktgen:/> set 0 dst mac 00:0C:29:E0:8B:DF
