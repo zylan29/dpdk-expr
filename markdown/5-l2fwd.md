@@ -67,7 +67,7 @@ Pktgen:/> str
 ```
 We set the dst mac of generated packetd to `00:0C:29:E0:8B:D5`, which is the mac of device `02:07.0` (port 0 in l2fwd).
 Now l2fwd keeps receiving packets by port 0 (02:07.0) and forwarding out through port 1 (02:08.0).
-Current out of l2fwd is
+Current output of l2fwd is
 ````
 Port statistics ====================================
 Statistics for port 0 ------------------------------
@@ -91,7 +91,7 @@ Pktgen:/> stp
 Pktgen:/> set 0 dst mac 00:0C:29:E0:8B:DF
 Pktgen:/> str
 ```
-Current out of l2fwd is
+Current output of l2fwd is
 ````
 Port statistics ====================================
 Statistics for port 0 ------------------------------
