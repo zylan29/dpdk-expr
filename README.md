@@ -11,10 +11,10 @@ However, it is **NOT** for performance purpose.
 1. Preparation
 1. [Hello DPDK world](markdown/1-hello-dpdk.md)
 1. [Bind NIC to uio driver](markdown/2-bind-nic-uio.md)
-1. [Apply DPDK in a docker container](markdown/3-dpdk-in-container.md)
+1. [DPDK in a docker container](markdown/3-dpdk-in-container.md)
 1. [Test pktgen-dpdk](markdown/4-pktgen-dpdk.md)
-1. Layer 2 forward
-1. Layer 3 forward
+1. Layer2 forward
+1. Layer3 forward
 
 # Enviroment
 My test environment is
