@@ -95,16 +95,16 @@ Current output of l2fwd is
 ````
 Port statistics ====================================
 Statistics for port 0 ------------------------------
-Packets sent:                  7138496
-Packets received:              1131166
+Packets sent:                 12428128
+Packets received:              1131178
 Packets dropped:                     0
 Statistics for port 1 ------------------------------
-Packets sent:                  1131166
-Packets received:              7138528
+Packets sent:                  1131178
+Packets received:             12428128
 Packets dropped:                     0
 Aggregate statistics ===============================
-Total packets sent:            8269662
-Total packets received:        8269694
+Total packets sent:           13559306
+Total packets received:       13559306
 Total packets dropped:               0
 ====================================================
 ````
