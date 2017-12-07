@@ -21,6 +21,7 @@ Network devices using DPDK-compatible driver
 0000:02:08.0 '82545EM Gigabit Ethernet Controller (Copper) 100f' drv=igb_uio unused=vfio-pci
 ````
 We use `02:06.0` to generate traffic by using pktgen-dpdk, while `02:07.0` and `02:08.0` to do layer2 forwarding.
+Since one DPDK-compatible network device can only be used by one DPDK application, we need to blacklist `02:06.0` in l2fwd, do so to `02:07.0` and `02:08.0` in pktgen.
 
 ### Run l2fwd
 
