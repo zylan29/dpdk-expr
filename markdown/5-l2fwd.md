@@ -12,7 +12,7 @@ The l2fwd application enables promiscuous by default, let us comment out `rte_et
 We need to disable promiscuous, because it is disturbing.
 
 ## Run
-We have the pci devices bined to DPDK-compatible driver, which are 02:06.0, 02:07.0 and 02:08.0.
+We have there pci devices bined to DPDK-compatible driver, which are 02:06.0, 02:07.0 and 02:08.0.
 ````
 Network devices using DPDK-compatible driver
 ============================================

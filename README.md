@@ -2,9 +2,9 @@
 
 This tutorial aims to build an experimental environment of DPDK.
 By following this tutorial, you can
-1. Build DPDK test enviroment in **ONE VM**.
-2. Make concrete understanding of DPDK.
-3. Valid the correctness of DPDK applications.
+* Build DPDK test enviroment in **ONE VM**.
+* Make concrete understanding of DPDK.
+* Valid the correctness of DPDK applications.
 
 However, it is **NOT** for performance purpose.
 
